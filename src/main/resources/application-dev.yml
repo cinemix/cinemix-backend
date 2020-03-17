@@ -1,0 +1,19 @@
+spring:
+  profiles: dev
+  security:
+    user:
+      name: "admin"
+      password: "admin"
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: "jdbc:h2:mem:cinemix;DB_CLOSE_DELAY=-1"
+    driverClassName: org.h2.Driver
+    username: "admin"
+    password: "admin"
+    platform: h2
+
+server:
+  port: 8081

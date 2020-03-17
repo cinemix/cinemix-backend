@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: "dev"
+
+cinemix:
+  app:
+    jwtSecret: "VerySecretKey"
+    jwtExpirationMs: "86400000"
