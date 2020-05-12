@@ -24,7 +24,7 @@ public class Screening {
     private Long id;
 
     @NotNull
-    @Column(name = "movies")
+    @Column(name = "movie_id")
     private Long movie;
 
     @NotBlank
