@@ -5,7 +5,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.kul.cinemix.models.Movie;
 import pl.kul.cinemix.service.MovieService;
-
 import java.util.List;
 import java.util.Optional;
 
