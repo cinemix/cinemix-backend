@@ -23,14 +23,6 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     @NotBlank
     @Size(max = 128)
     private String title;
@@ -54,5 +46,13 @@ public class Movie {
 
     public String getAuthor() {
         return author;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
