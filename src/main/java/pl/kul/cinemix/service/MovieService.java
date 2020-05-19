@@ -2,7 +2,6 @@ package pl.kul.cinemix.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.Entity;
 import pl.kul.cinemix.models.Movie;
 import pl.kul.cinemix.repository.MovieRepository;
 
@@ -30,11 +29,14 @@ public class MovieService {
         movieRepository.save(movie);
     }
 
-    public void editMovie(Movie movie){
+    public void editMovie(Movie movie) {
         Movie movieInDB = movieRepository.findById(movie.getId()).get();
         movieInDB.setTitle(movie.getTitle());
         movieInDB.setAuthor(movie.getAuthor());
         movieRepository.save(movieInDB);
+    }
 
+    public void deleteMovie(Long id) {
+        movieRepository.deleteById(id);
     }
 }

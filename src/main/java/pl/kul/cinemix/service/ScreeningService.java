@@ -29,13 +29,12 @@ public class ScreeningService {
         screeningRepository.save(screening);
     }
 
-    public void editScreening(Screening screening){
+    public void editScreening(Screening screening) {
         Screening screeningInDB = screeningRepository.findById(screening.getId()).get();
         screeningInDB.setMovie(screening.getMovie());
         screeningInDB.setRoom(screening.getRoom());
         screeningInDB.setDate(screening.getDate());
         screeningRepository.save(screeningInDB);
-
     }
 
     public void deleteScreening(Long id) {
