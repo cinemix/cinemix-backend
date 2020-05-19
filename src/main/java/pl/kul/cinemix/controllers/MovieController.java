@@ -37,4 +37,10 @@ public class MovieController {
     public void  editMovie(@RequestBody Movie movie){
         movieService.editMovie(movie);
     }
+
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    public void deleteMovie(@RequestBody Movie movie) {
+        movieService.deleteMovie(movie.getId());
+    }
 }
