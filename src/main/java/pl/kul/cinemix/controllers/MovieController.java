@@ -5,6 +5,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import pl.kul.cinemix.models.Movie;
 import pl.kul.cinemix.service.MovieService;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -34,13 +35,13 @@ public class MovieController {
 
     @PutMapping("/edit")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public void  editMovie(@RequestBody Movie movie){
+    public void editMovie(@RequestBody Movie movie) {
         movieService.editMovie(movie);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public void deleteMovie(@RequestBody Movie movie) {
-        movieService.deleteMovie(movie.getId());
+    public void deleteMovie(@PathVariable Long id) {
+        movieService.deleteMovie(id);
     }
 }
