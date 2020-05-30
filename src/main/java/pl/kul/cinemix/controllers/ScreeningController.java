@@ -45,9 +45,9 @@ public class ScreeningController {
         screeningService.editScreening(screening);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public void deleteScreening(@RequestBody Screening screening) {
-        screeningService.deleteScreening(screening.getId());
+    public void deleteScreening(@PathVariable Long id) {
+        screeningService.deleteScreening(id);
     }
 }
