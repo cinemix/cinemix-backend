@@ -16,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -34,6 +35,9 @@ public class Movie {
     @NotBlank
     @Size(max = 64)
     private String author;
+
+    @OneToMany(mappedBy="movie")
+    private Set<Screening> screenings;
 
     public Movie(@NotBlank @Size(max = 128) String title, @NotBlank @Size(max = 64) String author) {
         this.title = title;

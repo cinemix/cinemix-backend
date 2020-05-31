@@ -24,13 +24,13 @@ public class ScreeningController {
     @GetMapping("/all")
     public List<ScreeningDto> allScreenings() {
         return screeningService.getAllScreenings().stream()
-                .map(screeningMapper::mapToDto)
+                .map(screeningMapper::mapToScreeningDto)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
     public Optional<ScreeningDto> getScreening(@PathVariable Long id) {
-        return screeningService.getScreening(id).map(screeningMapper::mapToDto);
+        return screeningService.getScreening(id).map(screeningMapper::mapToScreeningDto);
     }
 
     @PostMapping("/add")
