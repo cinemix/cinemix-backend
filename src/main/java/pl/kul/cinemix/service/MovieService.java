@@ -33,6 +33,10 @@ public class MovieService {
         Movie movieInDB = movieRepository.findById(movie.getId()).get();
         movieInDB.setTitle(movie.getTitle());
         movieInDB.setAuthor(movie.getAuthor());
+        movieInDB.setDescription(movie.getDescription());
+        movieInDB.setYear(movie.getYear());
+        movieInDB.setCountry(movie.getCountry());
+        movieInDB.setDuration(movie.getDuration());
         movieRepository.save(movieInDB);
     }
 
