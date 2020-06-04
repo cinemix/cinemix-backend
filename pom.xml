@@ -15,6 +15,16 @@
     <description>Cinema Management System</description>
 
     <properties>
+        <code.coverage.exclusions>
+            **/pl/kul/cinemix/configuration/**,
+            **/pl/kul/cinemix/dto/**,
+            **/pl/kul/cinemix/mappers/**,
+            **/pl/kul/cinemix/models/**,
+            **/pl/kul/cinemix/profiles/**,
+            **/pl/kul/cinemix/repository/**,
+            **/pl/kul/cinemix/security/jwt/**,
+            **/pl/kul/cinemix/CinemixApplication.java
+        </code.coverage.exclusions>
         <spring.engine.version>2.2.5.RELEASE</spring.engine.version>
         <jjwt.version>0.9.1</jjwt.version>
         <h2.version>1.4.200</h2.version>
@@ -23,6 +33,8 @@
         <spock.version>1.3-groovy-2.5</spock.version>
         <mapstruct.version>1.3.1.Final</mapstruct.version>
         <heroku.version>2.0.16</heroku.version>
+        <sonarqube.version>3.7.0.1746</sonarqube.version>
+        <eid.exceptions.version>2.0.0</eid.exceptions.version>
         <java.version>11</java.version>
         <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
     </properties>
@@ -77,6 +89,11 @@
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
             <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>pl.wavesoftware</groupId>
+            <artifactId>eid-exceptions</artifactId>
+            <version>${eid.exceptions.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -142,6 +159,14 @@
                             <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
+                    <compilerArgs>
+                        <compilerArg>
+                            -Amapstruct.defaultComponentModel=spring
+                        </compilerArg>
+                        <compilerArg>
+                            -Amapstruct.unmappedTargetPolicy=ERROR
+                        </compilerArg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -174,5 +199,39 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <properties>
+                <sonar.sources>.</sonar.sources>
+                <sonar.inclusions>src/main/java/**,src/main/resources/**</sonar.inclusions>
+                <sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>
+                <sonar.projectKey>cinemix_cinemix-backend</sonar.projectKey>
+                <sonar.organization>devteampol</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>${sonarqube.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>

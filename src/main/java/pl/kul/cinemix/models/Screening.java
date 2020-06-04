@@ -23,9 +23,8 @@ public class Screening {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Column(name = "movie_id")
-    private Long movie;
+    @ManyToOne
+    private Movie movie;
 
     @NotBlank
     private String date;
@@ -33,7 +32,7 @@ public class Screening {
     @NotNull
     private Long room;
 
-    public Screening(@NotNull Long movie, @NotBlank  String date, @NotBlank Long room) {
+    public Screening(@NotNull Movie movie, @NotBlank  String date, @NotBlank Long room) {
         this.movie = movie;
         this.date = date;
         this.room = room;

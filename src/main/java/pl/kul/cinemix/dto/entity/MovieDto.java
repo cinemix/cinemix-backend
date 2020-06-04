@@ -5,9 +5,8 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class ScreeningDto {
+public class MovieDto {
     private final Long id;
-    private final Long movieId;
-    private final String date;
-    private final Long room;
+    private final String title;
+    private final String author;
 }
