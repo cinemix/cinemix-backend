@@ -11,23 +11,20 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "rows", uniqueConstraints = {@UniqueConstraint(columnNames = "rowindex")})
+@Table(name = "rows")
 @NoArgsConstructor
 public class Row {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    public Row(Long rowIndex, Long hallId, Set<Long> seats) {
-        this.rowIndex = rowIndex;
-        this.hallId = hallId;
-        seats = seats;
+    @ManyToOne
+    private Hall hall;
+
+    @OneToMany(mappedBy="row")
+    private Set<Seat> seats;
+
+    public Row(Hall hall) {
+        this.hall = hall;
     }
-
-    private Long rowIndex;
-
-    private Long hallId;
-
-    private Set<Long> Seats;
 }

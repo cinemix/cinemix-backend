@@ -23,18 +23,19 @@ public class Screening {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Movie movie;
-
     @NotBlank
     private String date;
 
-    @NotNull
-    private Long room;
+    @ManyToOne
+    private Movie movie;
 
-    public Screening(@NotNull Movie movie, @NotBlank  String date, @NotBlank Long room) {
-        this.movie = movie;
+    @NotNull
+    @ManyToOne
+    private Hall hall;
+
+    public Screening(@NotNull Movie movie, @NotBlank  String date, @NotBlank Hall hall) {
         this.date = date;
-        this.room = room;
+        this.movie = movie;
+        this.hall = hall;
     }
 }

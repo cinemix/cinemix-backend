@@ -34,14 +34,15 @@ public class MovieService {
         movieRepository.save(movieMapper.mapToMovie(movieDto));
     }
 
-    public void editMovie(Movie movie) {
+    public void editMovie(MovieDto movieDto) {
         Movie movieInDB = movieRepository.findById(movieDto.getId())
-                .orElseThrow(() -> new EidRuntimeException("20200531:171144", "Brak filmu w bazie do edycji"));        movieInDB.setTitle(movie.getTitle());
-        movieInDB.setAuthor(movie.getAuthor());
-        movieInDB.setDescription(movie.getDescription());
-        movieInDB.setYear(movie.getYear());
-        movieInDB.setCountry(movie.getCountry());
-        movieInDB.setDuration(movie.getDuration());
+                .orElseThrow(() -> new EidRuntimeException("20200531:171144", "Brak filmu w bazie do edycji"));
+        movieInDB.setTitle(movieDto.getTitle());
+        movieInDB.setAuthor(movieDto.getAuthor());
+        movieInDB.setDescription(movieDto.getDescription());
+        movieInDB.setYear(movieDto.getYear());
+        movieInDB.setCountry(movieDto.getCountry());
+        movieInDB.setDuration(movieDto.getDuration());
         movieRepository.save(movieInDB);
     }
 

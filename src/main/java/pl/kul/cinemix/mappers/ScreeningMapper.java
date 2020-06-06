@@ -10,6 +10,7 @@ import pl.kul.cinemix.models.Screening;
 public interface ScreeningMapper {
 
     @Mapping(target = "movieId", source = "movie.id")
+    @Mapping(target = "hallId", source ="hall.id")
     ScreeningDto mapToScreeningDto(Screening screening);
 
     @InheritInverseConfiguration(name = "mapToScreeningDto")

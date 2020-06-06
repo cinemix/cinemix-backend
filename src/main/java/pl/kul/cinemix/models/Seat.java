@@ -10,30 +10,21 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 @Entity
-@Table(name = "seats", uniqueConstraints = {@UniqueConstraint(columnNames = "seatindex")})
+@Table(name = "seats")
 @NoArgsConstructor
 
 public class Seat {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    private Long seatIndex;
 
-    private Long rowId;
-    private boolean isAvailable;
+    @ManyToOne
+    private Row row;
 
-    public Seat(@NotNull Long seatIndex, @NotNull Long rowId) {
-        this.seatIndex = seatIndex;
-        this.rowId = rowId;
-        isAvailable=true;
-    }
+    private Boolean isAvailable;
 
-    public Seat(@NotNull Long seatIndex, @NotNull Long rowId, boolean isAvailable) {
-        this.seatIndex = seatIndex;
-        this.rowId = rowId;
+    public Seat(@NotNull Row row, Boolean isAvailable) {
+        this.row = row;
         this.isAvailable = isAvailable;
     }
 }
