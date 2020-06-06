@@ -17,13 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import pl.kul.cinemix.security.jwt.AuthEntryPointJwt;
 import pl.kul.cinemix.security.jwt.AuthTokenFilter;
 import pl.kul.cinemix.service.UserDetailsServiceImpl;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiKey;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-
-import java.util.Collections;
 
 import static pl.kul.cinemix.profiles.AppProfiles.H2_CONSOLE;
 import static pl.kul.cinemix.profiles.AppProfiles.NOT;
@@ -33,7 +26,7 @@ import static pl.kul.cinemix.profiles.AppProfiles.NOT;
 @EnableGlobalMethodSecurity(
         prePostEnabled = true)
 @Profile(NOT + H2_CONSOLE)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -62,15 +55,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build().securitySchemes(Collections.singletonList(apiKey()));
-        //.securityContexts()
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable()
@@ -80,18 +64,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/test/**").permitAll()
                 .antMatchers("/api/movies/**").permitAll()
                 .antMatchers("/api/screenings/**").permitAll()
-                .antMatchers("/v2/api-docs").permitAll()
-                .antMatchers("/configuration/**").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll()
-                .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/webjars/**").permitAll()
-                .antMatchers("/api-docs/**").permitAll()
+                .antMatchers("/", "/csrf", "/v2/api-docs", "/swagger-resources/configuration/ui", "/configuration/ui",
+                        "/swagger-resources", "/swagger-resources/configuration/security", "/configuration/security",
+                        "/swagger-ui.html", "/webjars/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
-    private ApiKey apiKey() {
-        return new ApiKey("JWT", "Authorization", "header");
-    }
 }
