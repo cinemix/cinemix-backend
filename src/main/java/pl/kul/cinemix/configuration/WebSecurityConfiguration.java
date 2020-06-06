@@ -26,7 +26,7 @@ import static pl.kul.cinemix.profiles.AppProfiles.NOT;
 @EnableGlobalMethodSecurity(
         prePostEnabled = true)
 @Profile(NOT + H2_CONSOLE)
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     UserDetailsServiceImpl userDetailsService;
@@ -67,8 +67,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/halls/**").permitAll()
                 .antMatchers("/api/rows/**").permitAll()
                 .antMatchers("/api/seats/**").permitAll()
+                .antMatchers("/", "/csrf", "/v2/api-docs", "/swagger-resources/configuration/ui", "/configuration/ui",
+                        "/swagger-resources", "/swagger-resources/configuration/security", "/configuration/security",
+                        "/swagger-ui.html", "/webjars/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
+
 }

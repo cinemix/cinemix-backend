@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -42,8 +43,10 @@ public class Movie {
 
     private String country;
 
+    private Long duration;
 
-    private int duration;
+    @OneToMany(mappedBy="movie")
+    private Set<Screening> screenings;
 
     public Movie(
             @NotBlank @Size(max = 64) String author,
@@ -51,7 +54,7 @@ public class Movie {
              String description,
              String year,
              String country,
-             int duration) {
+             Long duration) {
 
         this.title = title;
         this.author = author;

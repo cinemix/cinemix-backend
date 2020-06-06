@@ -15,6 +15,27 @@
     <description>Cinema Management System</description>
 
     <properties>
+        <code.coverage.exclusions>
+            **/pl/kul/cinemix/configuration/**,
+            **/pl/kul/cinemix/dto/**,
+            **/pl/kul/cinemix/mappers/**,
+            **/pl/kul/cinemix/models/**,
+            **/pl/kul/cinemix/profiles/**,
+            **/pl/kul/cinemix/repository/**,
+            **/pl/kul/cinemix/security/jwt/**,
+            **/pl/kul/cinemix/CinemixApplication.java
+        </code.coverage.exclusions>
+        <spring.engine.version>2.2.5.RELEASE</spring.engine.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <h2.version>1.4.200</h2.version>
+        <postgresql.version>42.2.10</postgresql.version>
+        <lombok.version>1.18.12</lombok.version>
+        <spock.version>1.3-groovy-2.5</spock.version>
+        <mapstruct.version>1.3.1.Final</mapstruct.version>
+        <heroku.version>2.0.16</heroku.version>
+        <sonarqube.version>3.7.0.1746</sonarqube.version>
+        <eid.exceptions.version>2.0.0</eid.exceptions.version>
+        <swagger.version>2.9.2</swagger.version>
         <java.version>11</java.version>
         <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
     </properties>
@@ -23,44 +44,72 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring.engine.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+            <version>${spring.engine.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <version>${spring.engine.version}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <version>${jjwt.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+            <version>${spring.engine.version}</version>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <version>${postgresql.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>pl.wavesoftware</groupId>
+            <artifactId>eid-exceptions</artifactId>
+            <version>${eid.exceptions.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <version>${spring.engine.version}</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>
@@ -72,6 +121,25 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
+            <version>5.2.2.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${spock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-spring</artifactId>
+            <version>${spock.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -85,24 +153,100 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring.engine.version}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${mapstruct.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                    <compilerArgs>
+                        <compilerArg>
+                            -Amapstruct.defaultComponentModel=spring
+                        </compilerArg>
+                        <compilerArg>
+                            -Amapstruct.unmappedTargetPolicy=ERROR
+                        </compilerArg>
+                    </compilerArgs>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>com.heroku.sdk</groupId>
                 <artifactId>heroku-maven-plugin</artifactId>
-                <version>2.0.16</version>
+                <version>${heroku.version}</version>
                 <configuration>
                     <appName>cinemix</appName>
                     <includeTarget>false</includeTarget>
                     <includes>
                         <include>${basedir}/${full-artifact-name}</include>
                     </includes>
-                    <jdkVersion>11</jdkVersion>
+                    <jdkVersion>${java.version}</jdkVersion>
                     <processTypes>
                         <web>java $JAVA_OPTS -jar ${full-artifact-name} --spring.profiles.active=prod</web>
                     </processTypes>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmavenplus</groupId>
+                <artifactId>gmavenplus-plugin</artifactId>
+                <version>1.9.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compileTests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <properties>
+                <sonar.sources>.</sonar.sources>
+                <sonar.inclusions>src/main/java/**,src/main/resources/**</sonar.inclusions>
+                <sonar.exclusions>${code.coverage.exclusions}</sonar.exclusions>
+                <sonar.projectKey>cinemix_cinemix-backend</sonar.projectKey>
+                <sonar.organization>devteampol</sonar.organization>
+                <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+            </properties>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonarsource.scanner.maven</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <version>${sonarqube.version}</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
