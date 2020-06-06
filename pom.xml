@@ -35,6 +35,7 @@
         <heroku.version>2.0.16</heroku.version>
         <sonarqube.version>3.7.0.1746</sonarqube.version>
         <eid.exceptions.version>2.0.0</eid.exceptions.version>
+        <swagger.version>2.9.2</swagger.version>
         <java.version>11</java.version>
         <full-artifact-name>target/${project.artifactId}-${project.version}.jar</full-artifact-name>
     </properties>
@@ -94,6 +95,16 @@
             <groupId>pl.wavesoftware</groupId>
             <artifactId>eid-exceptions</artifactId>
             <version>${eid.exceptions.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
