@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kul.cinemix.dto.entity.ScreeningDto;
 import pl.kul.cinemix.mappers.ScreeningMapper;
-import pl.kul.cinemix.models.Screening;
 import pl.kul.cinemix.service.ScreeningService;
 
 import java.util.List;
@@ -43,14 +42,14 @@ public class ScreeningController {
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public void addScreening(@RequestBody Screening screening) {
-        screeningService.addScreening(screening);
+    public void addScreening(@RequestBody ScreeningDto screeningDto) {
+        screeningService.addScreening(screeningMapper.mapToScreening(screeningDto));
     }
 
     @PutMapping("/edit")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public void editScreening(@RequestBody Screening screening) {
-        screeningService.editScreening(screening);
+    public void editScreening(@RequestBody ScreeningDto screeningDto) {
+        screeningService.editScreening(screeningMapper.mapToScreening(screeningDto));
     }
 
     @DeleteMapping("/delete/{id}")
