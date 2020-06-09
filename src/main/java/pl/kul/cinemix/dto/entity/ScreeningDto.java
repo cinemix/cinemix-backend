@@ -8,6 +8,6 @@ import lombok.Getter;
 public class ScreeningDto {
     private final Long id;
     private final String date;
-    private final Long movieId;
-    private final Long hallId;
+    private final MovieDto movie;
+    private final Long room;
 }
