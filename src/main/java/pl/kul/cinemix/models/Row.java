@@ -21,7 +21,10 @@ public class Row {
     @ManyToOne
     private Hall hall;
 
-    @OneToMany(mappedBy="row")
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
     private Set<Seat> seats;
 
     public Row(Hall hall) {

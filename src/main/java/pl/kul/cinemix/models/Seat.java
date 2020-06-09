@@ -11,20 +11,19 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Entity
 @Table(name = "seats")
-@NoArgsConstructor
+
 
 public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Row row;
-
     private Boolean isAvailable;
 
-    public Seat(@NotNull Row row, Boolean isAvailable) {
-        this.row = row;
-        this.isAvailable = isAvailable;
+    public Seat(){
+        this.isAvailable = true;
     }
+
+
+
 }

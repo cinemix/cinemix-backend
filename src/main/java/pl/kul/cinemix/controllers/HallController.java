@@ -14,7 +14,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class HallController {
 
-    HallService hallService;
+    private final HallService hallService;
 
     @GetMapping("/{id}")
     public Optional<Hall> getHall(@PathVariable Long id){
@@ -30,4 +30,11 @@ public class HallController {
     public void deleteHall(@PathVariable Long id){
         hallService.deleteHall(id);
     }
+
+    @PostMapping("/addempty")
+    public void addEmptyHall(){
+        hallService.addEmptyHall();
+    }
 }
+
+
