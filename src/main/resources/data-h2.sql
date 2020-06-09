@@ -16,5 +16,6 @@ INSERT INTO users (
 INSERT INTO user_roles (user_id, role_id) VALUES ('1', '3');
 INSERT INTO movies (id, author, title) VALUES ('1', 'Quentin Tarantino', 'Koronaświrus');
 INSERT INTO movies (id, author, title) VALUES ('2', 'Ron Łesli', 'Harry Potter');
-INSERT INTO screenings (id, movie_id, date, room) VALUES ('1', '2', '09-05-2020 19:30', '1');
-INSERT INTO screenings (id, movie_id, date, room) VALUES ('2', '1', '10-05-2020 15:00', '2');
+INSERT INTO halls (id) VALUES ('1');
+INSERT INTO screenings (id, movie_id, date, hall_id) VALUES ('1', '2', '09-05-2020 19:30', '1');
+INSERT INTO screenings (id, movie_id, date, hall_id) VALUES ('2', '1', '10-05-2020 15:00', '1');
