@@ -9,10 +9,11 @@ import pl.kul.cinemix.models.Screening;
 @Mapper(componentModel = "spring")
 public interface ScreeningMapper {
 
-    @Mapping(target = "movieId", source = "movie.id")
-    @Mapping(target = "hallId", source ="hall.id")
+    @Mapping(target = "room", source = "hall.id")
+    @Mapping(target = "movie", source = "movie")
     ScreeningDto mapToScreeningDto(Screening screening);
 
     @InheritInverseConfiguration(name = "mapToScreeningDto")
+    @Mapping(ignore = true, target = "movie.screenings")
     Screening mapToScreening(ScreeningDto screeningDto);
 }
