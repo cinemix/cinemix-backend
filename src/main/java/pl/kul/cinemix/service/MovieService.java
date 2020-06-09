@@ -39,6 +39,10 @@ public class MovieService {
                 .orElseThrow(() -> new EidRuntimeException("20200531:171144", "Brak filmu w bazie do edycji"));
         movieInDB.setTitle(movieDto.getTitle());
         movieInDB.setAuthor(movieDto.getAuthor());
+        movieInDB.setDescription(movieDto.getDescription());
+        movieInDB.setYear(movieDto.getYear());
+        movieInDB.setCountry(movieDto.getCountry());
+        movieInDB.setDuration(movieDto.getDuration());
         movieRepository.save(movieInDB);
     }
 

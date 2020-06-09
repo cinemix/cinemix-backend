@@ -5,37 +5,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
-
-/**
- *
- */
 @Getter
 @Setter
 @Entity
-@Table(name = "screenings")
+@Table(name = "rows")
 @NoArgsConstructor
-public class Screening {
-
+public class Row {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String date;
-
-    @ManyToOne
-    private Movie movie;
-
-    @NotNull
     @ManyToOne
     private Hall hall;
 
-    public Screening(@NotNull Movie movie, @NotBlank  String date, @NotBlank Hall hall) {
-        this.date = date;
-        this.movie = movie;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<Seat> seats;
+
+    public Row(Hall hall) {
         this.hall = hall;
     }
 }

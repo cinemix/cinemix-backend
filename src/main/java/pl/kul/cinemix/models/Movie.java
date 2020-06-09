@@ -13,6 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +37,31 @@ public class Movie {
     @Size(max = 64)
     private String author;
 
+    private String description;
+
+    private String year;
+
+    private String country;
+
+    private Long duration;
+
     @OneToMany(mappedBy="movie")
     private Set<Screening> screenings;
 
-    public Movie(@NotBlank @Size(max = 128) String title, @NotBlank @Size(max = 64) String author) {
+    public Movie(
+            @NotBlank @Size(max = 64) String author,
+            @NotBlank @Size(max = 128) String title,
+             String description,
+             String year,
+             String country,
+             Long duration) {
+
         this.title = title;
         this.author = author;
+        this.description = description;
+        this.year = year;
+        this.country = country;
+        this.duration = duration;
+
     }
 }
