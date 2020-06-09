@@ -26,4 +26,7 @@ public class HallService{
         hallRepository.deleteById(id);
     }
 
+    public void addEmptyHall(){
+        hallRepository.save(new Hall());
+    }
 }

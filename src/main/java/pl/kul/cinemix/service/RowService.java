@@ -3,6 +3,7 @@ package pl.kul.cinemix.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.kul.cinemix.models.Row;
+import pl.kul.cinemix.models.Seat;
 import pl.kul.cinemix.repository.RowRepository;
 
 import java.util.Collection;
@@ -30,4 +31,10 @@ public class RowService {
     public void getAllRows() {
         rowRepository.findAll();
     }
+
+    public void addEmptyRow(){
+        rowRepository.save(new Row());
+    }
+
+
 }

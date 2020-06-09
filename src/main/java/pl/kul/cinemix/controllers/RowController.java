@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RowController {
 
-    RowService rowService;
+    private final RowService rowService;
 
     @GetMapping("/{id}")
     public Optional<Row> getHall(@PathVariable Long id){
@@ -36,5 +36,10 @@ public class RowController {
     @GetMapping("/all")
     public void allRows(){
         rowService.getAllRows();
+    }
+
+    @PostMapping("/addempty")
+    public void addEmptySeat(){
+        rowService.addEmptyRow();
     }
 }

@@ -30,4 +30,6 @@ public class Hall {
         this.rows = rows;
     }
 
+
+
 }
