@@ -19,30 +19,31 @@ public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieMapper movieMapper;
 
-    public List<MovieDto> getAllMovies() {
-        List<MovieDto> movies = new ArrayList<>();
-        movieRepository.findAll().forEach(movie -> movies.add(movieMapper.mapToMovieDto(movie)));
+    public List<Movie> getAllMovies() {
+        List<Movie> movies = new ArrayList<>();
+        movieRepository.findAll().forEach(movies::add);
+
         return movies;
     }
 
-    public Optional<MovieDto> getMovie(Long id) {
+    public Optional<Movie> getMovie(Long id) {
 
-        return movieRepository.findById(id).map(movieMapper::mapToMovieDto);
+        return movieRepository.findById(id);
     }
 
-    public void addMovie(MovieDto movieDto) {
-        movieRepository.save(movieMapper.mapToMovie(movieDto));
+    public void addMovie(Movie movie) {
+        movieRepository.save(movie);
     }
 
-    public void editMovie(MovieDto movieDto) {
-        Movie movieInDB = movieRepository.findById(movieDto.getId())
+    public void editMovie(Movie movie) {
+        Movie movieInDB = movieRepository.findById(movie.getId())
                 .orElseThrow(() -> new EidRuntimeException("20200531:171144", "Brak filmu w bazie do edycji"));
-        movieInDB.setTitle(movieDto.getTitle());
-        movieInDB.setAuthor(movieDto.getAuthor());
-        movieInDB.setDescription(movieDto.getDescription());
-        movieInDB.setYear(movieDto.getYear());
-        movieInDB.setCountry(movieDto.getCountry());
-        movieInDB.setDuration(movieDto.getDuration());
+        movieInDB.setTitle(movie.getTitle());
+        movieInDB.setAuthor(movie.getAuthor());
+        movieInDB.setDescription(movie.getDescription());
+        movieInDB.setYear(movie.getYear());
+        movieInDB.setCountry(movie.getCountry());
+        movieInDB.setDuration(movie.getDuration());
         movieRepository.save(movieInDB);
     }
 

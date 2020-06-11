@@ -32,7 +32,7 @@ public class ScreeningService {
     public void editScreening(Screening screening) {
         Screening screeningInDB = screeningRepository.findById(screening.getId()).get();
         screeningInDB.setMovie(screening.getMovie());
-        screeningInDB.setHall(screening.getHall());
+       // screeningInDB.setHall(screening.getHall());
         screeningInDB.setDate(screening.getDate());
         screeningRepository.save(screeningInDB);
     }

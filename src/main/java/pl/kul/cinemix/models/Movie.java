@@ -42,11 +42,8 @@ public class Movie {
     private String year;
 
     private String country;
-
+    @NotNull
     private Long duration;
-
-    @OneToMany(mappedBy="movie")
-    private Set<Screening> screenings;
 
     public Movie(
             @NotBlank @Size(max = 64) String author,
@@ -54,6 +51,7 @@ public class Movie {
              String description,
              String year,
              String country,
+             @NotNull
              Long duration) {
 
         this.title = title;
