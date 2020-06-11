@@ -2,8 +2,6 @@ package pl.kul.cinemix.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.kul.cinemix.dto.entity.MovieDto;
-import pl.kul.cinemix.mappers.MovieMapper;
 import pl.kul.cinemix.models.Movie;
 import pl.kul.cinemix.repository.MovieRepository;
 import pl.wavesoftware.eid.exceptions.EidRuntimeException;
@@ -17,7 +15,7 @@ import java.util.Optional;
 public class MovieService {
 
     private final MovieRepository movieRepository;
-    private final MovieMapper movieMapper;
+
 
     public List<Movie> getAllMovies() {
         List<Movie> movies = new ArrayList<>();
