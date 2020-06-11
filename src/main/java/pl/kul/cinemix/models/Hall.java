@@ -20,16 +20,11 @@ public class Hall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany(mappedBy="hall")
-    private Set<Row> rows;
-    @OneToMany(mappedBy="hall")
-    private Set<Screening> screenings;
+    private Long seatsQuantity;
+    private boolean isActive;
 
-    public Hall(Set<Screening> screenings, Set<Row> rows) {
-        this.screenings = screenings;
-        this.rows = rows;
+    public Hall( Long seatsQuantity, boolean isActive) {
+        this.seatsQuantity=seatsQuantity;
+        this.isActive=isActive;
     }
-
-
-
 }

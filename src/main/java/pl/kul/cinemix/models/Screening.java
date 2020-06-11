@@ -29,13 +29,13 @@ public class Screening {
     @ManyToOne
     private Movie movie;
 
-    @NotNull
-    @ManyToOne
-    private Hall hall;
+    //@NotNull
+    //@ManyToOne
+    //private Hall hall;, @NotBlank Hall hall        this.hall = hall;
 
-    public Screening(@NotNull Movie movie, @NotBlank  String date, @NotBlank Hall hall) {
+    public Screening(@NotNull Movie movie, @NotBlank  String date) {
         this.date = date;
         this.movie = movie;
-        this.hall = hall;
+
     }
 }

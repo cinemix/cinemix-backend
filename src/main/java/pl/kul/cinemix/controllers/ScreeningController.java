@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pl.kul.cinemix.dto.entity.ScreeningDto;
 import pl.kul.cinemix.mappers.ScreeningMapper;
+import pl.kul.cinemix.models.Screening;
 import pl.kul.cinemix.service.ScreeningService;
 
 import java.util.List;
@@ -29,21 +30,20 @@ public class ScreeningController {
     private final ScreeningMapper screeningMapper;
 
     @GetMapping("/all")
-    public List<ScreeningDto> allScreenings() {
-        return screeningService.getAllScreenings().stream()
-                .map(screeningMapper::mapToScreeningDto)
-                .collect(Collectors.toList());
+    public List<Screening> allScreenings() {
+        return screeningService.getAllScreenings();
+
     }
 
     @GetMapping("/{id}")
-    public Optional<ScreeningDto> getScreening(@PathVariable Long id) {
-        return screeningService.getScreening(id).map(screeningMapper::mapToScreeningDto);
+    public Optional<Screening> getScreening(@PathVariable Long id) {
+        return screeningService.getScreening(id);
     }
 
     @PostMapping("/add")
     @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public void addScreening(@RequestBody ScreeningDto screeningDto) {
-        screeningService.addScreening(screeningMapper.mapToScreening(screeningDto));
+    public void addScreening(@RequestBody Screening screening) {
+        screeningService.addScreening(screening);
     }
 
     @PutMapping("/edit")
