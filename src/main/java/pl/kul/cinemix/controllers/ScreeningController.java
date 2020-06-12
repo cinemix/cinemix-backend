@@ -18,7 +18,7 @@ public class ScreeningController {
 
 
     @GetMapping("/all")
-    public List<Screening> allScreenings() {
+    public List<ScreeningDto> allScreenings() {
         return screeningService.getAllScreenings();
     }
 
@@ -46,12 +46,12 @@ public class ScreeningController {
     }
 
     @PutMapping("/reservation/{screeningID}/{ticketsAmount}")
-    public void ticketsReservation(@PathVariable Long ticketsAmount,@PathVariable Long screeningID){
-        screeningService.ticketsReservation(ticketsAmount,screeningID);
+    public boolean ticketsReservation(@PathVariable Long screeningID,@PathVariable Long ticketsAmount){
+        return screeningService.checkReservation(ticketsAmount,screeningID);
     }
 
     @PutMapping("/cancelreservation/{screeningID}/{ticketsAmount}")
-    public void cancelTicketsReservation(@PathVariable Long ticketAmount, @PathVariable Long screeninID){
-        screeningService.cancellTicketsReservation(ticketAmount,screeninID);
+    public boolean cancelTicketsReservation(@PathVariable Long ticketsAmount, @PathVariable Long screeningID){
+        return screeningService.checkCancelReservation(ticketsAmount,screeningID);
     }
 }

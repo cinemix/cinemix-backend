@@ -15,4 +15,14 @@ public class ScreeningDto {
     private  String date;
     private  Movie movie;
     private  Hall hall;
+    private Long tickets;
+
+
+public ScreeningDto(Long id, String date, Movie movie, Hall hall, Long tickets){
+    this.id = id;
+    this.date = date;
+    this.movie = movie;
+    this.hall = hall;
+    this.tickets = tickets;
+}
 }

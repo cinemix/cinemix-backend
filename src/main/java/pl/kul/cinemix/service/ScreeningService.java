@@ -22,10 +22,20 @@ public class ScreeningService {
     private final MovieRepository movieRepository;
     private final HallRepository hallRepository;
 
-    public List<Screening> getAllScreenings() {
+    public List<ScreeningDto> getAllScreenings() {
         List<Screening> screenings = new ArrayList<>();
+        List<ScreeningDto> screeningsDto = new ArrayList<>();
         screeningRepository.findAll().forEach(screenings::add);
-        return screenings;
+        for(Screening s: screenings){
+            screeningsDto.add(
+                    new ScreeningDto(
+                            s.getId(),
+                            s.getDate(),
+                            movieRepository.findById(s.getMovie()).get(),
+                            hallRepository.findById(s.getHall()).get(),
+                            s.getTickets()));
+        }
+        return screeningsDto;
     }
 
     public ScreeningDto getScreening(Long id) {
@@ -35,6 +45,7 @@ public class ScreeningService {
         screeningDto.setDate(screening.get().getDate());
         screeningDto.setMovie(movieRepository.findById(screening.get().getMovie()).get());
         screeningDto.setHall(hallRepository.findById(screening.get().getHall()).get());
+        screeningDto.setTickets(screening.get().getTickets());
         return screeningDto;
     }
 
@@ -55,12 +66,36 @@ public class ScreeningService {
         screeningRepository.deleteById(id);
     }
 
-    public void ticketsReservation(Long ticketsAmount, Long seanseId){
-       Optional<Screening> screening = screeningRepository.findById(seanseId);
-       screening.get().setTickets(screening.get().getTickets()-ticketsAmount);
+    public void ticketsReservation(Long ticketsAmount, Screening screening){
+
+       screening.setTickets(screening.getTickets()-ticketsAmount);
+       screeningRepository.save(screening);
     }
-    public void cancellTicketsReservation(Long ticketsAmount, Long seanseId){
-       Optional<Screening> screening = screeningRepository.findById(seanseId);
-       screening.get().setTickets(screening.get().getTickets()+ticketsAmount);
+
+    public boolean checkReservation(Long ticketsAmount, Long screeningId){
+        Optional<Screening> screening = screeningRepository.findById(screeningId);
+        if(screening.get().getTickets()<ticketsAmount)
+            return false;
+        else{
+            ticketsReservation(ticketsAmount,screening.get());
+            return true;
+        }
+    }
+
+    public void cancelTicketsReservation(Long ticketsAmount, Screening screening){
+
+       screening.setTickets(screening.getTickets()+ticketsAmount);
+        screeningRepository.save(screening);
+    }
+
+    public boolean checkCancelReservation(Long ticketsAmount, Long screeningId){
+        Optional<Screening> screening = screeningRepository.findById(screeningId);
+        Hall hall = hallRepository.findById(screening.get().getHall()).get();
+        if((screening.get().getTickets()+ticketsAmount)> hall.getSeatsQuantity())
+            return false;
+        else{
+            cancelTicketsReservation(ticketsAmount,screening.get());
+            return true;
+        }
     }
 }
