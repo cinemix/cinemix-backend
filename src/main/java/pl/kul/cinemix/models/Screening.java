@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 
 /**
@@ -26,16 +25,20 @@ public class Screening {
     @NotBlank
     private String date;
 
-    @ManyToOne
-    private Movie movie;
+    private Long movie;
 
-    //@NotNull
-    //@ManyToOne
-    //private Hall hall;, @NotBlank Hall hall        this.hall = hall;
+    private Long hall;
 
-    public Screening(@NotNull Movie movie, @NotBlank  String date) {
+    private Long tickets;
+
+    public Screening(String date, Long movie, Long hall,Long tickets) {
         this.date = date;
         this.movie = movie;
+        this.hall = hall;
+        this.tickets = tickets;
+    }
 
+    public Long setTicketsAmountByHall(Hall hall) {
+        return hall.getSeatsQuantity();
     }
 }
