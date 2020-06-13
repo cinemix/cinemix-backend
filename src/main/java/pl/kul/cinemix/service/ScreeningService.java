@@ -50,6 +50,7 @@ public class ScreeningService {
     }
 
     public void addScreening(Screening screening) {
+        screening.setTickets(hallRepository.findById(screening.getHall()).get().getSeatsQuantity());
         screeningRepository.save(screening);
     }
 
