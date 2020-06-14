@@ -25,13 +25,14 @@ public class Screening {
     @NotBlank
     private String date;
 
+
     private Long movie;
 
     private Long hall;
 
     private Long tickets;
 
-    public Screening(String date, Long movie, Long hall,Long tickets) {
+    public Screening(String date, Long movie, Long hall, Long tickets) {
         this.date = date;
         this.movie = movie;
         this.hall = hall;

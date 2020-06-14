@@ -45,13 +45,5 @@ public class ScreeningController {
         screeningService.deleteScreening(id);
     }
 
-    @PutMapping("/reservation/{screeningID}/{ticketsAmount}")
-    public boolean ticketsReservation(@PathVariable Long screeningID,@PathVariable Long ticketsAmount){
-        return screeningService.checkReservation(ticketsAmount,screeningID);
-    }
 
-    @PutMapping("/cancelreservation/{screeningID}/{ticketsAmount}")
-    public boolean cancelTicketsReservation(@PathVariable Long ticketsAmount, @PathVariable Long screeningID){
-        return screeningService.checkCancelReservation(ticketsAmount,screeningID);
-    }
 }

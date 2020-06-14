@@ -3,9 +3,9 @@ package pl.kul.cinemix.repository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pl.kul.cinemix.models.Seat;
+import pl.kul.cinemix.models.Reservation;
 
-@Qualifier("seats")
+@Qualifier("reservations")
 @Repository
-public interface SeatRepository extends CrudRepository<Seat, Long> {
+public interface ReservationRepository extends CrudRepository<Reservation, Long> {
 }
