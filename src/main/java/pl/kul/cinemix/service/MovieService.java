@@ -3,7 +3,10 @@ package pl.kul.cinemix.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.kul.cinemix.models.Movie;
+import pl.kul.cinemix.models.Screening;
 import pl.kul.cinemix.repository.MovieRepository;
+import pl.kul.cinemix.repository.ReservationRepository;
+import pl.kul.cinemix.repository.ScreeningRepository;
 import pl.wavesoftware.eid.exceptions.EidRuntimeException;
 
 import java.util.ArrayList;
@@ -15,7 +18,9 @@ import java.util.Optional;
 public class MovieService {
 
     private final MovieRepository movieRepository;
-
+    private final ScreeningRepository screeningRepository;
+    private final ReservationRepository reservationRepository;
+    private final ScreeningService screeningService;
 
     public List<Movie> getAllMovies() {
         List<Movie> movies = new ArrayList<>();
@@ -46,6 +51,17 @@ public class MovieService {
     }
 
     public void deleteMovie(Long id) {
-        movieRepository.deleteById(id);
+
+        List<Screening> screenings = new ArrayList<>();
+        screeningRepository.findAll().forEach(screenings::add);
+
+        for (Screening s : screenings) {
+            if (s.getMovie() == id) {
+                screeningService.deleteScreening(s.getId());
+            }
+        }
+
+        Movie movie = movieRepository.findById(id).orElseThrow(() -> new EidRuntimeException("20200531:171144", "There is no movie specified by this id"));
+        movieRepository.deleteById(movie.getId());
     }
 }
