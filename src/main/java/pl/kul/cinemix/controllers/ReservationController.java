@@ -31,7 +31,7 @@ public class ReservationController {
         return reservationService.getReservationsByUsername(username);
     }
 
-    @PutMapping("/reservation")
+    @PostMapping("/reservation")
     public boolean ticketsReservation(@RequestBody Reservation reservation) {
         return reservationService.checkReservation(reservation);
     }
