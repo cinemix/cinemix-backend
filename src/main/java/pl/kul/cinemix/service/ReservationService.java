@@ -63,7 +63,7 @@ public class ReservationService {
 
     public void cancelTicketsReservation(Reservation reservation) {
 
-        Screening screening = screeningRepository.findById(reservation.getId()).get();
+        Screening screening = screeningRepository.findById(reservation.getScreening()).get();
         screening.setTickets(screening.getTickets() + reservation.getTickets());
         screeningRepository.save(screening);
         reservationRepository.deleteById(reservation.getId());
