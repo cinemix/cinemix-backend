@@ -1,11 +1,11 @@
-package pl.domain.coldroom.repository;
+package pl.kul.cinemix.repository;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pl.domain.coldroom.models.Refrigerator;
+import pl.kul.cinemix.models.Screening;
 
-@Qualifier("halls")
+@Qualifier("screenings")
 @Repository
-public interface HallRepository extends CrudRepository <Refrigerator, Long> {
+public interface ScreeningRepository extends CrudRepository<Screening, Long> {
 }

@@ -1,4 +1,4 @@
-package pl.domain.coldroom.models;
+package pl.kul.cinemix.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,13 +7,14 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+
 /**
  *
  */
 @Getter
 @Setter
 @Entity
-@Table(name = "coldrooms")
+@Table(name = "screenings")
 @NoArgsConstructor
 public class Screening {
 
@@ -24,13 +25,21 @@ public class Screening {
     @NotBlank
     private String date;
 
-    private Long vaccine;
 
-    private Long refrigerator;
+    private Long movie;
 
-    public Screening(String date, Long vaccine, Long refrigerator) {
+    private Long hall;
+
+    private Long tickets;
+
+    public Screening(String date, Long movie, Long hall, Long tickets) {
         this.date = date;
-        this.vaccine = vaccine;
-        this.refrigerator = refrigerator;
+        this.movie = movie;
+        this.hall = hall;
+        this.tickets = tickets;
+    }
+
+    public Long setTicketsAmountByHall(Hall hall) {
+        return hall.getSeatsQuantity();
     }
 }

@@ -1,4 +1,4 @@
-package pl.domain.coldroom.models;
+package pl.kul.cinemix.models;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,9 +1,9 @@
-package pl.domain.coldroom.controllers;
+package pl.kul.cinemix.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.domain.coldroom.models.Vaccine;
-import pl.domain.coldroom.service.VaccineService;
+import pl.kul.cinemix.models.Movie;
+import pl.kul.cinemix.service.MovieService;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,33 +14,33 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class MovieController {
 
-    private final VaccineService vaccineService;
+    private final MovieService movieService;
 
     @GetMapping("/all")
-    public List<Vaccine> allMovies() {
-        return vaccineService.getAllMovies();
+    public List<Movie> allMovies() {
+        return movieService.getAllMovies();
     }
 
     @GetMapping("/{id}")
-    public Optional<Vaccine> getMovie(@PathVariable Long id) {
-        return vaccineService.getVaccine(id);
+    public Optional<Movie> getMovie(@PathVariable Long id) {
+        return movieService.getMovie(id);
     }
 
     @PostMapping("/add")
     // @PreAuthorize("hasRole('ADMIN')")
-    public void addMovie(@RequestBody Vaccine vaccine) {
-        vaccineService.addVaccine(vaccine);
+    public void addMovie(@RequestBody Movie movie) {
+        movieService.addMovie(movie);
     }
 
     @PutMapping("/edit")
     // @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
-    public void editMovie(@RequestBody Vaccine vaccine) {
-        vaccineService.editVaccine(vaccine);
+    public void editMovie(@RequestBody Movie movie) {
+        movieService.editMovie(movie);
     }
 
     @DeleteMapping("/delete/{id}")
     //  @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
     public void deleteMovie(@PathVariable Long id) {
-        vaccineService.deleteVaccine(id);
+        movieService.deleteMovie(id);
     }
 }

@@ -1,10 +1,10 @@
-package pl.domain.coldroom.controllers;
+package pl.kul.cinemix.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.domain.coldroom.dto.entity.ScreeningDto;
-import pl.domain.coldroom.models.Screening;
-import pl.domain.coldroom.service.ScreeningService;
+import pl.kul.cinemix.dto.entity.ScreeningDto;
+import pl.kul.cinemix.models.Screening;
+import pl.kul.cinemix.service.ScreeningService;
 
 import java.util.List;
 
